@@ -30,7 +30,13 @@ def testsuffix():
     # s.addTree('T002',str2)
     tEnd = time.time()
     print "it costs %f sec" % (tEnd-tStart)
-    s.queryTree(s.inputQuery())
+    while True:
+        i = s.inputQuery()
+        if i[0] == 'exit':
+            print "Goodbye~"
+            break
+        else:
+            s.queryTree(i)
 
 if __name__ == "__main__":
     main()
