@@ -36,7 +36,10 @@ def testsuffix():
             print "Goodbye~"
             break
         else:
-            s.queryTree(i)
+        	# tS = time.time()
+        	s.queryTree(i)
+        	# tE = time.time()
+        	# print "Query costs %f sec" % (tE-tS)
 
 if __name__ == "__main__":
     main()

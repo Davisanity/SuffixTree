@@ -1,3 +1,4 @@
+import time
 from node import Node
 class Suffix:
 	rootNode = Node("","")
@@ -42,6 +43,7 @@ class Suffix:
 		return input
 
 	def queryTree(self,input):
+		tS = time.time()
 		self.now = self.rootNode
 		#if i (type string) is in nextMap keep traverse
 		#until the end, that is input[-1]
@@ -50,25 +52,29 @@ class Suffix:
 				self.now = self.now.goNext(i)
 				if i==input[-1]:
 					output = self.outputProcess(self.now.text,len(input))
+					tE = time.time()
+					print "Query costs %f sec" % (tE-tS)
 					return output
-			else:
+				        		
+        	else:
 				print ("sorry your query is not in the Suffix tree")
 				return None
-
+	#T001:1,T001:4,T001:7
 	#split this string:T001:1,4,7;T002:4
 	# a[0] = 'T001:1,4,7' a[1] = 'T002:4'
 	# b[0] = 'T001' b[1] = '1,4,7'
 	# c[0] = '1' c[1] = '4' c[2]='7'
 	# d = 'T001'+':'+'0,3,6'
-	# outpuy = T001:0,3,6;T002:3
+	# output = T001:0,3,6;T002:3
 	def outputProcess(self,string,leng):
 		d=""
 		output = ""
-
+		count = 0
 		a = string.split(";")
 		for i in range(len(a)):
 			b = a[i].split(":")
 			c = b[1].split(",")
+			count+=len(c)
 			d=""
 			for j in c:
 				if j==c[-1]:
@@ -83,5 +89,6 @@ class Suffix:
 			else:
 				d = b[0]+":"+d+'\n'
 				output+=d
-		print output
+		print output +'\nFucking count:',count
+		
 		return output
